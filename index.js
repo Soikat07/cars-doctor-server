@@ -21,6 +21,9 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   },
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  maxPoolSize: 10,
 });
 
 // verify jwt token
@@ -42,7 +45,7 @@ const verifyJwt = (req, res, next) => {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    client.connect();
 
     const servicesCollection = client.db('carsDoctor').collection('services');
     const bookingsCollection = client.db('carsDoctor').collection('bookings');
